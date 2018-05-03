@@ -4,6 +4,7 @@
     <string name="orders_by_province">Orders By Province</string>
     <string name="orders_created_in_2017">Orders Created In 2017</string>
     <string name="orders_count">(%d)</string>
+    <string name="orders_count_by_province">%d orders from</string>
     <string name="order_number">Order Number : %d</string>
     <string name="currency">$%s</string>
     <string name="loading_data_message">Loading data! Please make sure you are connected to the internet. This app isn\'t smart enough to handle edge cases!</string>

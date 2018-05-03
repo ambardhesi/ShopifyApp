@@ -41,7 +41,7 @@ public class OrdersByProvinceAdapter extends RecyclerView.Adapter<OrdersByProvin
         String province = (String) mOrdersByProvince.keySet().toArray()[position];
         List<Order> ordersForProvince = mOrdersByProvince.get(province);
         holder.mProvinceNameTextView.setText(province);
-        holder.mOrdersCountTextView.setText(String.valueOf(ordersForProvince.size()));
+        holder.mOrdersCountTextView.setText(mResources.getString(R.string.orders_count_by_province, ordersForProvince.size()));
     }
 
     @Override
