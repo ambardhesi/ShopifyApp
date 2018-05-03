@@ -6,7 +6,9 @@ import com.nefariousdream.shopifyapp.data.model.Order;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.SortedMap;
 
 public class OrderSummaryContract {
     public interface Presenter extends BasePresenter {
@@ -20,10 +22,10 @@ public class OrderSummaryContract {
     }
 
     public static class Data {
-        private HashMap<String, List<Order>> ordersByProvince;
-        private List<Order> ordersCreatedIn2017;
+        public SortedMap<String, List<Order>> ordersByProvince;
+        public List<Order> ordersCreatedIn2017;
 
-        public Data(HashMap<String, List<Order>> ordersByProvince, List<Order> ordersCreatedIn2017) {
+        public Data(SortedMap<String, List<Order>> ordersByProvince, List<Order> ordersCreatedIn2017) {
             this.ordersByProvince = ordersByProvince;
             this.ordersCreatedIn2017 = ordersCreatedIn2017;
         }

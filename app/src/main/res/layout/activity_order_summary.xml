@@ -32,25 +32,13 @@
             android:layout_height="wrap_content"
             android:padding="4dp">
 
-            <LinearLayout
-                android:id="@+id/orders_by_province"
+            <TextView
+                android:id="@+id/orders_by_province_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="4dp">
-                <TextView
-                    android:id="@+id/orders_by_province_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/orders_by_province"
-                    android:textStyle="bold"/>
+                android:text="@string/orders_by_province"
+                android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/orders_by_province_count_text"
-                    android:layout_marginLeft="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/orders_by_province_recycler"
                 android:layout_width="match_parent"

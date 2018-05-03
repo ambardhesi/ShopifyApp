@@ -5,7 +5,10 @@ import com.nefariousdream.shopifyapp.data.source.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class OrderSummaryPresenter implements OrderSummaryContract.Presenter {
     private Repository mRepository;
@@ -23,7 +26,7 @@ public class OrderSummaryPresenter implements OrderSummaryContract.Presenter {
 
     @Override
     public void loadOrders() {
-        HashMap<String, List<Order>> ordersByProvince = new HashMap<>();
+        SortedMap<String, List<Order>> ordersByProvince = new TreeMap<>();
         List<Order> ordersCreatedIn2017 = new ArrayList<>();
 
         mRepository.getOrders(orders -> {
@@ -48,7 +51,7 @@ public class OrderSummaryPresenter implements OrderSummaryContract.Presenter {
         });
     }
 
-    private void processOrders(HashMap<String, List<Order>> ordersByProvince, List<Order> ordersCreatedIn2017) {
+    private void processOrders(SortedMap<String, List<Order>> ordersByProvince, List<Order> ordersCreatedIn2017) {
         OrderSummaryContract.Data data = new OrderSummaryContract.Data(ordersByProvince, ordersCreatedIn2017);
         mOrderSummaryView.showOrders(data);
     }

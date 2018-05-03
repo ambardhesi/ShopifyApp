@@ -2,6 +2,7 @@ package com.nefariousdream.shopifyapp.ordersummary;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -9,6 +10,12 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.nefariousdream.shopifyapp.BaseView;
 import com.nefariousdream.shopifyapp.Injection;
 import com.nefariousdream.shopifyapp.R;
+import com.nefariousdream.shopifyapp.data.model.Order;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class OrderSummaryActivity extends AppCompatActivity implements OrderSummaryContract.View {
 
@@ -20,6 +27,10 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
 
     private RecyclerView mOrdersByProvinceRecyclerView;
     private RecyclerView mOrdersCreatedIn2017RecyclerView;
+
+    private OrdersByProvinceAdapter mOrdersByProvinceAdapter;
+
+    private SortedMap<String, List<Order>> mOrdersByProvice = new TreeMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +61,9 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
     }
 
     private void setUpRecyclerViews() {
-
+        mOrdersByProvinceAdapter = new OrdersByProvinceAdapter(getResources(), mOrdersByProvice);
+        mOrdersByProvinceRecyclerView.setAdapter(mOrdersByProvinceAdapter);
+        mOrdersByProvinceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -73,6 +86,8 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
 
     @Override
     public void showOrders(OrderSummaryContract.Data listData) {
-        // TO DO implement
+        mOrdersByProvice.clear();
+        mOrdersByProvice.putAll(listData.ordersByProvince);
+        mOrdersByProvinceAdapter.notifyDataSetChanged();
     }
 }

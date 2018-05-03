@@ -23,6 +23,9 @@ public class Order implements Serializable
     @SerializedName("order_status_url")
     @Expose
     public String orderStatusUrl;
+    @SerializedName("total_price")
+    @Expose
+    public String totalPrice;
     @SerializedName("shipping_address")
     @Expose
     public ShippingAddress shippingAddress;
