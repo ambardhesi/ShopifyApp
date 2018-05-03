@@ -8,13 +8,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.nefariousdream.shopifyapp.BaseView;
 import com.nefariousdream.shopifyapp.Injection;
 import com.nefariousdream.shopifyapp.R;
 import com.nefariousdream.shopifyapp.data.model.Order;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -30,7 +28,7 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
     private RecyclerView mOrdersByProvinceRecyclerView;
     private RecyclerView mOrdersCreatedIn2017RecyclerView;
 
-    private OrdersByProvinceAdapter mOrdersByProvinceAdapter;
+    private OrdersByProvinceCountAdapter mOrdersByProvinceCountAdapter;
     private OrdersAdapter mOrdersCreatedIn2017Adapter;
     private TextView mOrdersCreatedIn2017CountTextView;
 
@@ -66,8 +64,8 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
     }
 
     private void setUpRecyclerViews() {
-        mOrdersByProvinceAdapter = new OrdersByProvinceAdapter(getResources(), mOrdersByProvice);
-        mOrdersByProvinceRecyclerView.setAdapter(mOrdersByProvinceAdapter);
+        mOrdersByProvinceCountAdapter = new OrdersByProvinceCountAdapter(getResources(), mOrdersByProvice);
+        mOrdersByProvinceRecyclerView.setAdapter(mOrdersByProvinceCountAdapter);
         mOrdersByProvinceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mOrdersByProvinceRecyclerView.setNestedScrollingEnabled(false);
 
@@ -99,7 +97,7 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
     public void showOrders(OrderSummaryContract.Data listData) {
         mOrdersByProvice.clear();
         mOrdersByProvice.putAll(listData.ordersByProvince);
-        mOrdersByProvinceAdapter.notifyDataSetChanged();
+        mOrdersByProvinceCountAdapter.notifyDataSetChanged();
 
         mOrdersCreatedIn2017.clear();
         mOrdersCreatedIn2017.addAll(listData.ordersCreatedIn2017);

@@ -11,33 +11,30 @@ import android.widget.TextView;
 import com.nefariousdream.shopifyapp.R;
 import com.nefariousdream.shopifyapp.data.model.Order;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.SortedMap;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class OrdersByProvinceAdapter extends RecyclerView.Adapter<OrdersByProvinceAdapter.OrdersByProvinceViewHolder> {
+public class OrdersByProvinceCountAdapter extends RecyclerView.Adapter<OrdersByProvinceCountAdapter.OrdersByProvinceCountViewHolder> {
 
     private Resources mResources;
     private SortedMap<String, List<Order>> mOrdersByProvince;
 
-    public OrdersByProvinceAdapter(Resources resources, SortedMap<String, List<Order>> ordersByProvince) {
+    public OrdersByProvinceCountAdapter(Resources resources, SortedMap<String, List<Order>> ordersByProvince) {
         mResources = checkNotNull(resources);
         mOrdersByProvince = checkNotNull(ordersByProvince);
     }
 
     @NonNull
     @Override
-    public OrdersByProvinceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View orderView = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_by_province_row, parent, false);
-        return new OrdersByProvinceViewHolder(orderView);
+    public OrdersByProvinceCountViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View orderView = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_by_province_count_row, parent, false);
+        return new OrdersByProvinceCountViewHolder(orderView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OrdersByProvinceViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OrdersByProvinceCountViewHolder holder, int position) {
         String province = (String) mOrdersByProvince.keySet().toArray()[position];
         List<Order> ordersForProvince = mOrdersByProvince.get(province);
         holder.mProvinceNameTextView.setText(province);
@@ -49,11 +46,11 @@ public class OrdersByProvinceAdapter extends RecyclerView.Adapter<OrdersByProvin
         return mOrdersByProvince.size();
     }
 
-    public class OrdersByProvinceViewHolder extends RecyclerView.ViewHolder {
+    public class OrdersByProvinceCountViewHolder extends RecyclerView.ViewHolder {
         public TextView mProvinceNameTextView;
         public TextView mOrdersCountTextView;
 
-        public OrdersByProvinceViewHolder(View itemView) {
+        public OrdersByProvinceCountViewHolder(View itemView) {
             super(itemView);
             mProvinceNameTextView = itemView.findViewById(R.id.province_name_text_view);
             mOrdersCountTextView = itemView.findViewById(R.id.orders_count_text_view);
