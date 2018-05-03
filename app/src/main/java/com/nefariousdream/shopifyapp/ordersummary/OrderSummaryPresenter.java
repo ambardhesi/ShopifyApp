@@ -30,14 +30,18 @@ public class OrderSummaryPresenter implements OrderSummaryContract.Presenter {
             mOrderSummaryView.hideFetchingDataView();
 
             for (Order order : orders) {
-                String orderProvince = order.shippingAddress.province;
-                if (ordersByProvince.get(orderProvince) == null) {
-                    ordersByProvince.put(orderProvince, new ArrayList<>());
+                if (order.shippingAddress != null) {
+                    String orderProvince = order.shippingAddress.province;
+                    if (ordersByProvince.get(orderProvince) == null) {
+                        ordersByProvince.put(orderProvince, new ArrayList<>());
+                    }
+                    ordersByProvince.get(orderProvince).add(order);
                 }
-                ordersByProvince.get(orderProvince).add(order);
 
-                if (true) {
-                    ordersCreatedIn2017.add(order);
+                if (order.createdAt != null && !order.createdAt.isEmpty()) {
+                    if (order.createdAt.substring(0, 4).equals("2017")) {
+                        ordersCreatedIn2017.add(order);
+                    }
                 }
             }
             processOrders(ordersByProvince, ordersCreatedIn2017);
