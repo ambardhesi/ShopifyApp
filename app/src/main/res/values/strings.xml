@@ -7,6 +7,6 @@
     <string name="orders_count_by_province">%d orders from</string>
     <string name="order_number">Order Number : %d</string>
     <string name="currency">$%s</string>
+    <string name="customer_name">Customer name : %s %s</string>
     <string name="loading_data_message">Loading data! Please make sure you are connected to the internet. This app isn\'t smart enough to handle edge cases!</string>
-
 </resources>

@@ -21,6 +21,7 @@ public class OrderSummaryPresenter implements OrderSummaryContract.Presenter {
 
     @Override
     public void start() {
+        mOrderSummaryView.showFetchingDataView();
         loadOrders();
     }
 

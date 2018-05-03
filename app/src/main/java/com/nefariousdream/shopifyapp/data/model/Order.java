@@ -16,7 +16,7 @@ public class Order implements Serializable
     public String totalPriceUsd;
     @SerializedName("order_number")
     @Expose
-    public Long orderNumber;
+    public int orderNumber;
     @SerializedName("contact_email")
     @Expose
     public String contactEmail;
