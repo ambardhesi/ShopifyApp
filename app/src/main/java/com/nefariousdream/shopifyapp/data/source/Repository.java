@@ -12,8 +12,6 @@ public class Repository {
 
     private RemoteDataSource remoteDataSource;
 
-    private boolean doesDataExist;
-
     public static Repository getInstance(RemoteDataSource remoteDataSource) {
         if (INSTANCE == null) {
             INSTANCE = new Repository(remoteDataSource);
@@ -27,13 +25,10 @@ public class Repository {
 
     public void getOrders(LoadDataCallback<Order> callback) {
         checkNotNull(callback);
-        if (!doesDataExist) {
             getOrdersFromRemoteDataSource(list -> {
                 callback.onDataLoaded(list);
-                doesDataExist = true;
             });
-        }
-    }
+     }
 
     private void getOrdersFromRemoteDataSource(LoadDataCallback<Order> callback) {
         remoteDataSource.getOrders(callback);

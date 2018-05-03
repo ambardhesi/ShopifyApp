@@ -13,6 +13,7 @@ import com.nefariousdream.shopifyapp.R;
 import com.nefariousdream.shopifyapp.data.model.Order;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -25,6 +26,7 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
     private View mFetchingDataView;
     private View mContentScrollView;
 
+    private View mOrdersByProvinceTextView;
     private RecyclerView mOrdersByProvinceRecyclerView;
     private RecyclerView mOrdersCreatedIn2017RecyclerView;
 
@@ -32,7 +34,7 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
     private OrdersAdapter mOrdersCreatedIn2017Adapter;
     private TextView mOrdersCreatedIn2017CountTextView;
 
-    private SortedMap<String, List<Order>> mOrdersByProvice = new TreeMap<>();
+    private SortedMap<String, List<Order>> mOrdersByProvince = new TreeMap<>();
     private List<Order> mOrdersCreatedIn2017 = new ArrayList<>();
 
     @Override
@@ -58,13 +60,18 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
         mShimmerLayout = findViewById(R.id.shimmer_layout);
         mFetchingDataView = findViewById(R.id.loading_data_layout);
         mContentScrollView = findViewById(R.id.content_scroll_view);
+        mOrdersByProvinceTextView = findViewById(R.id.orders_by_province_text);
         mOrdersByProvinceRecyclerView = findViewById(R.id.orders_by_province_recycler);
         mOrdersCreatedIn2017RecyclerView = findViewById(R.id.orders_created_in_2017_recycler);
         mOrdersCreatedIn2017CountTextView = findViewById(R.id.orders_created_in_2017_count_text);
+
+        mOrdersByProvinceTextView.setOnClickListener(view -> {
+            mOrderSummaryPresenter.ordersByProvinceTitleClicked();
+        });
     }
 
     private void setUpRecyclerViews() {
-        mOrdersByProvinceCountAdapter = new OrdersByProvinceCountAdapter(getResources(), mOrdersByProvice);
+        mOrdersByProvinceCountAdapter = new OrdersByProvinceCountAdapter(getResources(), mOrdersByProvince);
         mOrdersByProvinceRecyclerView.setAdapter(mOrdersByProvinceCountAdapter);
         mOrdersByProvinceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mOrdersByProvinceRecyclerView.setNestedScrollingEnabled(false);
@@ -94,9 +101,16 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
     }
 
     @Override
+    public void showOrdersByProvinceDialog() {
+        HashMap<String, List<Order>> ordersByProvinceHashMap = new HashMap<>(mOrdersByProvince);
+        OrdersByProvinceDialog ordersByProvinceDialog = OrdersByProvinceDialog.newInstance(ordersByProvinceHashMap);
+        ordersByProvinceDialog.show(getSupportFragmentManager(), "dialog");
+    }
+
+    @Override
     public void showOrders(OrderSummaryContract.Data listData) {
-        mOrdersByProvice.clear();
-        mOrdersByProvice.putAll(listData.ordersByProvince);
+        mOrdersByProvince.clear();
+        mOrdersByProvince.putAll(listData.ordersByProvince);
         mOrdersByProvinceCountAdapter.notifyDataSetChanged();
 
         mOrdersCreatedIn2017.clear();

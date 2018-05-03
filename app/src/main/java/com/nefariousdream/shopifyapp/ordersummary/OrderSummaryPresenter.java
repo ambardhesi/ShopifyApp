@@ -52,6 +52,11 @@ public class OrderSummaryPresenter implements OrderSummaryContract.Presenter {
         });
     }
 
+    @Override
+    public void ordersByProvinceTitleClicked() {
+        mOrderSummaryView.showOrdersByProvinceDialog();
+    }
+
     private void processOrders(SortedMap<String, List<Order>> ordersByProvince, List<Order> ordersCreatedIn2017) {
         OrderSummaryContract.Data data = new OrderSummaryContract.Data(ordersByProvince, ordersCreatedIn2017);
         mOrderSummaryView.showOrders(data);

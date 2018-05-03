@@ -12,13 +12,15 @@ import java.util.SortedMap;
 
 public class OrderSummaryContract {
     public interface Presenter extends BasePresenter {
-        public void loadOrders();
+        void loadOrders();
+        void ordersByProvinceTitleClicked();
     }
 
     public interface View extends BaseView<Presenter> {
-        public void showFetchingDataView();
-        public void hideFetchingDataView();
-        public void showOrders(Data listData);
+        void showFetchingDataView();
+        void hideFetchingDataView();
+        void showOrders(Data listData);
+        void showOrdersByProvinceDialog();
     }
 
     public static class Data {
